@@ -1,6 +1,8 @@
 from fastapi import FastAPI, File, UploadFile, Request
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
+import uvicorn
 
 app = FastAPI()
 
@@ -17,11 +19,13 @@ async def upload(file: UploadFile = File(...)):
                 empty_day.append(df["날짜"][i])
             else:
                 continue
+        print(empty_day[:3])
         return empty_day[:3]
-    
-@app.get('/')
-def root():
-    return "Welcome"
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_methods=["*"]
+)
 
 '''
 db = []
