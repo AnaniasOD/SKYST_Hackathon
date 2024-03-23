@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receive String from Backend</title>
+</head>
+<body>
+    <h2>String from Backend:</h2>
+    <p id="stringFromBackend"></p>
+
+    <script>
+        fetch('http://localhost:8000/send-string/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('stringFromBackend').textContent = data.message;
+            })
+            .catch(error => {
+                console.error('There was a problem fetching the string:', error);
+            });
+    </script>
+</body>
+</html>
