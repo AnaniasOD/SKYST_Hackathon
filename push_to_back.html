@@ -28,12 +28,13 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('dataContainer').innerText = data.result;
-                console.log(document.getElementById('dataContainer').innerText)
             })
             .catch(error => {
                 console.error('There was a problem with the file upload:', error);
             });
         }
+    console.log(document.getElementById('dataContainer').innerText)
+
     </script>
 
 </body>
