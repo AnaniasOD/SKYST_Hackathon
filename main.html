@@ -38,6 +38,15 @@
                 background-color: #f8f9fa;
             }
     </style>
+    <script>
+      window.onload = function() {
+                  // Retrieve URL parameters
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const variable1 = urlParams.get('variable1');
+
+        }    
+    </script>
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -59,13 +68,17 @@
           </ul>
         </div>
       </nav>
-      <div class="container">
-        <div class="btn-container">
-            <button class="btn btn-primary btn-card" onclick="alert('3/25')">3/25</button>
-            <button class="btn btn-primary btn-card" onclick="alert('3/28')">3/28</button>
-            <button class="btn btn-primary btn-card" onclick="alert('3/30')">3/30</button>
-        </div>
-    </div>
+      <form action="http://localhost:8000/submit_radio" method="post">
+        <input type="radio" id="3/25" value="20240325", name="Choice">
+        <label for="3/25">2024/03/25</label><br>
+        <input type="radio" id="3/28" value="20240328", name="Choice">
+        <label for="3/28">2024/03/28</label><br>
+        <input type="radio" id="3/31" value="20230331", name="Choice">
+        <label for="3/31">2024/03/31</label><br>
+        <input type='reset'>
+        <input type="submit" value="Submit">
+      </form>
+  
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
