@@ -6,9 +6,35 @@
     <title>File Upload</title>
 </head>
 <body>
-    <form action="http://127.0.0.1:8000/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <button type="submit">Upload</button>
+    <h2>Upload a File</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file">
+        <button type="button" onclick="uploadFile()">Upload File</button>
     </form>
+    <div id="dataContainer"></div>
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            console.log(file)
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('http://127.0.0.1:8000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dataContainer').innerText = data.result;
+                console.log(document.getElementById('dataContainer').innerText)
+            })
+            .catch(error => {
+                console.error('There was a problem with the file upload:', error);
+            });
+        }
+    </script>
+
 </body>
 </html>
