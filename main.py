@@ -5,7 +5,6 @@ import pandas as pd
 import uvicorn
 
 app = FastAPI()
-
 #class Item(BaseModel):
 #    data: str
 
@@ -24,9 +23,11 @@ async def upload(file: UploadFile = File(...)):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_methods=["*"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_origins=["*", "http://localhost:5500"],
 )
-
 '''
 db = []
 

@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Upload</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Upload a File</h2>
     <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="file">
-        <button type="button" onclick="uploadFile()">Upload File</button>
+      <input type="file" id="fileInput" name="file" />
+      <button type="button" onclick="uploadFile()">Upload File</button>
     </form>
 
     <script>
-        function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            
-            console.log(file)
-            const formData = new FormData();
-            formData.append('file', file);
+      function uploadFile() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
 
-            fetch('http://127.0.0.1:8000/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                document.getElementById('dataContainer').innerText = data.result;
-            })
-            .catch(error => {
-                console.error('There was a problem with the file upload:', error);
-            });
-        }
+        console.log(file);
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("http://127.0.0.1:8000/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            document.getElementById("dataContainer").innerText = data.result;
+          })
+          .catch((error) => {
+            console.error("There was a problem with the file upload:", error);
+          });
+      }
     </script>
     <div id="dataContainer"></div>
-
-</body>
+  </body>
 </html>
