@@ -11,7 +11,7 @@
         <input type="file" id="fileInput" name="file">
         <button type="button" onclick="uploadFile()">Upload File</button>
     </form>
-
+    <div id="dataContainer"></div>
     <script>
         function uploadFile() {
             const fileInput = document.getElementById('fileInput');
@@ -33,8 +33,13 @@
                 console.error('There was a problem with the file upload:', error);
             });
         }
+    console.log(document.getElementById('dataContainer').innerText)
+
     </script>
+<<<<<<< HEAD
     <div id="dataContainer"></div>
+=======
+>>>>>>> 75420e14ba00e4fc672224dc549ae7012c7294dc
 
 </body>
 </html>
