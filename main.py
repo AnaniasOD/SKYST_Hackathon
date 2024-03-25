@@ -16,7 +16,7 @@ async def upload(file: UploadFile = File(...)):
         empty_day = []
         df = pd.read_csv(file.file)
         for i in range(len(df)):
-            if df_bro["일정"][i] == 'x' & df_dad["일정"][i] == 'x' & df_mom["일정"][i] == 'x' & df["일정"][i] == 'x':
+            if df_bro["일정"][i] == 'x' and df_dad["일정"][i] == 'x' and df_mom["일정"][i] == 'x' and df["일정"][i] == 'x':
                 empty_day.append(df["날짜"][i])
             else:
                 continue
