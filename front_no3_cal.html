@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Calendar</title>
+    <style>
+        body {
+            font-family: 'Do Hyeon', sans-serif;
+            font-weight: 400;
+        }
+        .calendar {
+            border-collapse: collapse;
+            width: 80%;
+            
+            margin-bottom: 20px;
+        }
+        .calendar th,
+        .calendar td {
+            border: 2px solid black;
+            text-align: right;
+            padding: 20px;
+            background-color: #ffffff; /* 흰색 배경 */
+        }
+        .calendar th {
+            background-color: #aed6f1; /* 연한 하늘색 배경 */
+            text-align: center;
+            /* 글씨 크기를 2배로 */
+            font-size: 200%;
+        }
+        .calendar th span {
+            /* 글씨 크기를 1.5배로 */
+            font-size: 150%;
+        }
+        .calendar th,
+        .calendar td {
+            width: 14.28%; /* 100%를 7등분하여 각 요일이 동일한 너비를 가지도록 설정 */
+        }
+        /* 50% 키우기 */
+        .calendar th,
+        .calendar td,
+        .btn {
+            font-size: 150%;
+        }
+    </style>
+</head>
+<body>
+
+<div style="display: flex; align-items: center; justify-content: center; height: 100vh;" id="calendar-container"></div>
+<button type="button" class="btn btn-outline-info" onclick="prevMonth()">이전 달</button>
+<button type="button" class="btn btn-outline-info" onclick="nextMonth()">다음 달</button>
+
+<script>
+    var currentYear;
+    var currentMonth;
+
+    function generateCalendar(year, month) {
+        var container = document.getElementById('calendar-container');
+        container.innerHTML = ''; // Clear previous calendar
+
+        var currentDate = new Date(year, month - 1, 1);
+        var startingDay = new Date(year, month - 1, 1).getDay(); // Starting day of the month
+        var daysInMonth = new Date(year, month, 0).getDate(); // Number of days in the month
+
+        var table = '<table class="calendar">';
+        table += '<thead><tr><th colspan="7" style="background-color: #aed6f1;"><span>' + currentDate.toLocaleString('default', { month: 'long', year: 'numeric' }) + '</span></th></tr>';
+        table += '<tr><th style="background-color: #aed6f1;">일</th><th style="background-color: #aed6f1;">월</th><th style="background-color: #aed6f1;">화</th><th style="background-color: #aed6f1;">수</th><th style="background-color: #aed6f1;">목</th><th style="background-color: #aed6f1;">금</th><th style="background-color: #aed6f1;">토</th></tr></thead>';
+        table += '<tbody>';
+
+        var date = 1;
+        // Fill in the days of the month
+        for (var i = 0; i < 6; i++) { // 6 rows are sufficient to display any month
+            table += '<tr>';
+            for (var j = 0; j < 7; j++) {
+                if (i === 0 && j < startingDay) {
+                    table += '<td></td>'; // Empty cells before the starting day
+                } else if (date > daysInMonth) {
+                    table += '<td></td>'; // Empty cells after the end of the month
+                } else {
+                    table += '<td>' + date + '</td>'; // Day cells
+                    date++;
+                }
+            }
+            table += '</tr>';
+            if (date > daysInMonth) break; // Stop if all days of the month are filled
+        }
+
+        table += '</tbody></table>';
+
+        container.innerHTML = table;
+    }
+
+    function prevMonth() {
+        currentMonth--;
+        if (currentMonth < 1) {
+            currentMonth = 12;
+            currentYear--;
+        }
+        generateCalendar(currentYear, currentMonth);
+    }
+
+    function nextMonth() {
+        currentMonth++;
+        if (currentMonth > 12) {
+            currentMonth = 1;
+            currentYear++;
+        }
+        generateCalendar(currentYear, currentMonth);
+    }
+
+    // Get current date
+    var today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth() + 1; // Month is zero-based
+
+    // Generate calendar for current month
+    generateCalendar(currentYear, currentMonth);
+</script>
+
+</body>
+</html>

@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import uvicorn
 
+html_list = []
+
 app = FastAPI()
 
 @app.post('/upload')
@@ -23,9 +25,9 @@ async def upload(file: UploadFile = File(...)):
         print(empty_day[:3])
         global empty
         empty = empty_day[:3]
+        print(empty)
         return empty_day[:3]
 
-html_list = []
 
 @app.post("/submit_radio")
 async def submit_radio(choice: str = Form(...)):
@@ -49,6 +51,6 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_origins=["*", "http://localhost:5500"],
+    allow_origins=["*", "http://localhost:8000"],
 )
 
